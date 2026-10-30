@@ -41,5 +41,6 @@ public class StarterApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 }
