@@ -22,6 +22,11 @@ public class Player implements Creature{
     }
 
     @Override
+    public boolean isDead(){
+        return hp <= 0;
+    }
+
+    @Override
     public void takeDamage(int damage){
         hp -= damage;
     }
