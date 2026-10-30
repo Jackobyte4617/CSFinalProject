@@ -18,7 +18,7 @@ public class Player implements Creature{
     public String getName(){
         return name;
     }
-    
+
     @Override
     public int getHp(){
         return hp;
