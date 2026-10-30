@@ -2,11 +2,12 @@ package finalproject;
 
 public class Player implements Creature{
     private int hp;
+    private static final int MAXHP = 20;
     private static final int DAMAGE = 6;
     private String name;
 
     public Player(String name){
-        this.hp = 20;
+        this.hp = MAXHP;
         this.name = name;
     }
 
@@ -17,8 +18,15 @@ public class Player implements Creature{
     public String getName(){
         return name;
     }
+    
+    @Override
     public int getHp(){
         return hp;
+    }
+
+    @Override
+    public int getMaxHp() {
+        return MAXHP;
     }
 
     @Override
