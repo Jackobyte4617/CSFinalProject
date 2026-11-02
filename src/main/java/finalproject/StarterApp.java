@@ -14,14 +14,16 @@ import java.util.List;
 public class StarterApp extends Application {
 
     private int currentEnemyIndex = 0;
-    private int playerHealth = 100;
 
     @Override
     public void start(Stage stage) {
         Label titleLabel = new Label("FF1RipOff - Milestone 2: 1-on-1 Battle");
 
+        // Create a player
+        Player p1 = new Player();
+
         // Player and Game State Labels
-        Label playerLabel = new Label("👤 Player | Health: " + playerHealth);
+        Label playerLabel = new Label("👤 Player | Health: " + p1.getHealth());
         Label statusLabel = new Label("A wild enemy appears! Choose your action.");
 
         // Build your roster of enemies

@@ -3,8 +3,8 @@ package finalproject;
 public interface Creature {
     public int attack();
     public void takeDamage(int damage);
-    public boolean isDead();
-    public int getHp();
-    public int getMaxHp();
+    public boolean isAlive();
+    public int getHealth();
+    public String getName();
 
 }

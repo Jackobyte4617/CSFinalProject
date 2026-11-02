@@ -2,13 +2,15 @@ package finalproject;
 
 public class Player implements Creature{
     private int hp;
-    private static final int MAXHP = 20;
+    private static final int MAXHP = 100;
     private static final int DAMAGE = 6;
     private String name;
+    private static int numberOfPlayers;
 
-    public Player(String name){
+    public Player(){
         this.hp = MAXHP;
-        this.name = name;
+        numberOfPlayers++;
+        this.name = "Adventurer " + numberOfPlayers;
     }
 
     @Override
@@ -20,18 +22,17 @@ public class Player implements Creature{
     }
 
     @Override
-    public int getHp(){
+    public int getHealth(){
         return hp;
     }
 
-    @Override
     public int getMaxHp() {
         return MAXHP;
     }
 
     @Override
-    public boolean isDead(){
-        return hp <= 0;
+    public boolean isAlive(){
+        return hp >= 0;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Player implements Creature{
     }
 
     public boolean run(){
-        return (.6 < Math.random());
+        return (((MAXHP - hp) / MAXHP) <= Math.random());
 
     }
 
