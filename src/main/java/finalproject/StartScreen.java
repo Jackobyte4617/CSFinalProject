@@ -29,10 +29,25 @@ public class StartScreen extends Application {
         start.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
         start.setTranslateY(400);
 
+        //button does stuff
+        start.setOnAction(event ->{
+            try{
+                stage.close();
+                Stage battleStage = new Stage();
+                StarterApp mainGameApp = new StarterApp();
+                mainGameApp.start(battleStage);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        });
+
         // root and stuff
         Pane root = new Pane(title, start);
         stage.setTitle("Title Screen");
         stage.setScene(new Scene(root,800,600));
         stage.show();
+    }
+    public static void main(String[] args){
+        launch(args);
     }
 }
