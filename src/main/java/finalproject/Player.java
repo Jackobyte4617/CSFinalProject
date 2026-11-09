@@ -34,7 +34,7 @@ public class Player implements Creature{
 
     @Override
     public boolean isAlive(){
-        return hp = 0;
+        return hp > 0;
     }
 
     @Override
