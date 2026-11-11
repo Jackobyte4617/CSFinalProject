@@ -1,6 +1,0 @@
-Show current character healths
-Show action options
-Show enemies
-Show enemy actions
-Show enemy healths
-show changes to healths
