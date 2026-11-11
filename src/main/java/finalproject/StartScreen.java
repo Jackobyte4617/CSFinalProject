@@ -70,10 +70,25 @@ public class StartScreen extends Application {
         fileNameBoxLabel.setTranslateX(275 - (start.getBoundsInLocal().getWidth() / 2));
         fileNameBoxLabel.setTranslateY(300);
 
+        //button does stuff
+        start.setOnAction(event ->{
+            try{
+                stage.close();
+                Stage worldStage = new Stage();
+                WorldScreen worldScreen = new WorldScreen();
+                worldScreen.start(worldStage);
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        });
+
         // root and stuff
         Pane root = new Pane(title, start, load,fileNameBox,fileNameBoxLabel);
         stage.setTitle("Title Screen");
         stage.setScene(new Scene(root,800,600));
         stage.show();
+    }
+    public static void main(String[] args){
+        launch(args);
     }
 }
