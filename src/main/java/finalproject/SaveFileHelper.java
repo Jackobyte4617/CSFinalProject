@@ -17,7 +17,7 @@ public class SaveFileHelper {
      */
 
     //will build and then return WorldScreen
-    public static void loadFile(String fileName) throws FileNotFoundException {
+    public static Player loadFile(String fileName) throws FileNotFoundException {
         File file = new File("src/main/java/SaveFiles/"+fileName+".txt");
         Scanner reader = new Scanner(file);
         int world = Integer.parseInt(reader.next());
@@ -36,15 +36,19 @@ public class SaveFileHelper {
          */
         reader.close();
         if(world<=0||pos<0||hP<=0)throw new InvalidParameterException();
+        //temporary
+        Player p = new Player(fileName);
+        p.takeDamage(p.getHealth()-hP);
+        return p;
         //WorldScreen worldScreen = new WorldScreen();
         //worldScreen.getPlayer().takeDamage(world.getPlayer().health-hp);
         //updating position and world to saved values, code depends on implementation
         //return worldScreen
     }
-    public static void save(Player p,int world,int pos,String fileName) throws IOException {
-        File file = new File("src/main/java/SaveFiles/"+fileName+".txt");
+    public static void save(Player p,int world,int pos) throws IOException {
+        File file = new File("src/main/java/SaveFiles/"+p.getName()+".txt");
         file.delete();
-        FileWriter writer = new FileWriter("src/main/java/SaveFiles/"+fileName+".txt");
+        FileWriter writer = new FileWriter("src/main/java/SaveFiles/"+p.getName()+".txt");
         writer.write(world+" "+pos+" "+p.getHealth());
         writer.close();
     }

@@ -7,10 +7,11 @@ public class Player implements Creature{
     private String name;
     private static int numberOfPlayers;
 
-    public Player(){
+    public Player(String name){
         this.hp = MAXHP;
         numberOfPlayers++;
-        this.name = "Adventurer " + numberOfPlayers;
+        this.name=name;
+        //this.name = "Adventurer " + numberOfPlayers;
     }
 
     @Override
