@@ -81,11 +81,11 @@ public class BattleScene extends Application {
             if(pAction) {
                 pAction = false;
                 p.attack(enemy);
-                updateScreen();
+                updateScreen(stage);
                 console.setText(p.getName() + " damages " + enemy.getName() + " for " + p.getDamage());
                 pause.setOnFinished(efe -> {
                     if(enemy.isAlive()){
-                        enemyAttack();
+                        enemyAttack(stage);
                     }
                 });
                 pause.play();
@@ -102,12 +102,14 @@ public class BattleScene extends Application {
                 ranAway = p.run();
                 if(ranAway){
                     console.setText("You successfully ran away");
-                    pause.setOnFinished(efe -> stage.close());
+                    pause.setOnFinished(efe -> {
+                        stage.close();
+                    });
                     pause.play();
                 } else {
-                    enemyAttack();
+                    enemyAttack(stage);
                 }
-                updateScreen();
+                updateScreen(stage);
             }
         });
 
@@ -116,10 +118,11 @@ public class BattleScene extends Application {
 
         render = new PauseTransition();
         render.setDuration(Duration.millis(50));
+
         Pane characters = new Pane(e1, p1);
         Pane information = new Pane(box,hE1.getDisplay(),hP1.getDisplay(), playerHPLabel, enemyHPLabel, attack, run, console);
         VBox root = new VBox(characters,information);
-        updateScreen();
+        updateScreen(stage);
         stage.setTitle("CSSE220 Final Project");
         stage.setScene(new Scene(root,800,600));
         stage.show();
@@ -129,24 +132,28 @@ public class BattleScene extends Application {
 
     }
 
-    public void updateScreen(){
+    public void updateScreen(Stage stage){
         hP1.updateHP((double) p.getHealth() / p.getMAXHP());
         hE1.updateHP((double) enemy.getHealth() / enemy.getMAXHP());
         if(!p.isAlive()) {
             render.setOnFinished(e -> console.setText("Defeat..."));
-            pause.setOnFinished(e -> System.out.println("L"));
+            pause.setOnFinished(e -> {
+                stage.close();
+            });
             render.play();
             pause.play();
         }
         if(!enemy.isAlive()){
             render.setOnFinished(e -> console.setText("Victory!"));
-            pause.setOnFinished(e -> System.out.println("W"));
+            pause.setOnFinished(e -> {
+                stage.close();
+            });
             render.play();
             pause.play();
         }
     }
 
-    private void enemyAttack() {
+    private void enemyAttack(Stage stage) {
             enemy.attack(p);
             render.setOnFinished(e -> console.setText(enemy.getName() + " damages " + p.getName() + " for " + enemy.getDamage() + " damage!"));
             render.play();
@@ -155,6 +162,6 @@ public class BattleScene extends Application {
                 console.setText("Player's decision");
             });
             pause.play();
-        updateScreen();
+        updateScreen(stage);
     }
 }

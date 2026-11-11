@@ -70,14 +70,14 @@ public class StartScreen extends Application {
         fileNameBoxLabel.setTranslateY(300);
 
         Player player = new Player();
-        Enemy zombie = new Zombie();
+        Enemy dragondeeznuts = new Dragon();
 
         //button does stuff
         start.setOnAction(event ->{
             try{
                 stage.close();
                 Stage Display = new Stage();
-                BattleScene d = new BattleScene(player, zombie);
+                BattleScene d = new BattleScene(player, dragondeeznuts);
                 d.start(Display);
             } catch(Exception e){
                 e.printStackTrace();
