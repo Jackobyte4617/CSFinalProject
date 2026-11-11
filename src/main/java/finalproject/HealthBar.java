@@ -35,7 +35,6 @@ public class HealthBar {
     //    }
     public void updateHP(double hPPercent)
     {
-        System.out.println(hPPercent);
         hP.setWidth(120*hPPercent);
         hPText.setText((int)(creature.getMAXHP()*hPPercent+0.01)+ "/" + creature.getMAXHP());
     }

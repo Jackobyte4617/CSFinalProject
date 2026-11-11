@@ -80,6 +80,8 @@ public class StartScreen extends Application {
         nameBoxLabel.setTranslateY(200);
 
 
+        
+        Enemy dragondeeznuts = new Dragon();
 
         //button does stuff
         start.setOnAction(event ->{
@@ -93,7 +95,7 @@ public class StartScreen extends Application {
                 Enemy zombie = new Zombie();
                 stage.close();
                 Stage Display = new Stage();
-                BattleScene d = new BattleScene(player, zombie);
+                BattleScene d = new BattleScene(player, dragondeeznuts);
                 d.start(Display);
             } catch(Exception e){
                 e.printStackTrace();
