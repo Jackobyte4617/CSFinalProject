@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -70,13 +69,16 @@ public class StartScreen extends Application {
         fileNameBoxLabel.setTranslateX(275 - (start.getBoundsInLocal().getWidth() / 2));
         fileNameBoxLabel.setTranslateY(300);
 
+        Player player = new Player();
+        Enemy zombie = new Zombie();
+
         //button does stuff
         start.setOnAction(event ->{
             try{
                 stage.close();
-                Stage worldStage = new Stage();
-                WorldScreen worldScreen = new WorldScreen();
-                worldScreen.start(worldStage);
+                Stage Display = new Stage();
+                BattleScene d = new BattleScene(player, zombie);
+                d.start(Display);
             } catch(Exception e){
                 e.printStackTrace();
             }
