@@ -33,9 +33,9 @@ public class WorldScreen extends Application {
         start.setOnAction(event ->{
             try{
                 stage.close();
-                Stage worldStage = new Stage();
+                Stage battleStage = new Stage();
                 StarterApp mainGameApp = new StarterApp();
-                mainGameApp.start(worldStage);
+                mainGameApp.start(battleStage);
             } catch(Exception e){
                 e.printStackTrace();
             }
