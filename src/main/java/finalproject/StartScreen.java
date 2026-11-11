@@ -16,8 +16,8 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 
 public class StartScreen extends Application {
-    private Label fileNameBoxLabel;
-    private TextField fileNameBox;
+    private Label nameBoxLabel;
+    private TextField nameBox;
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -31,9 +31,9 @@ public class StartScreen extends Application {
         Button start = new Button("Start Adventure");
         start.setFont(Font.font(15));
         start.setPrefHeight(50);
-        start.setPrefWidth(150);
-        start.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
-        start.setTranslateY(200);
+        start.setPrefWidth(200);
+        start.setTranslateX(300 - (start.getBoundsInLocal().getWidth() / 2));
+        start.setTranslateY(350);
 
         // button to load a save file
         Button load = new Button("Continue Adventure");
@@ -44,37 +44,55 @@ public class StartScreen extends Application {
         load.setTranslateY(425);
         load.setOnAction(event ->
             {
+                if(nameBox.getText().isBlank())
+                {
+                    nameBoxLabel.setText("\t You must give your character a name");
+                    return;
+                }
                 try{
                     //WorldScreen world =
-                    SaveFileHelper.loadFile(fileNameBox.getText());
+                    Player p = SaveFileHelper.loadFile(nameBox.getText());
+                    Enemy zombie = new Zombie();
+                    stage.close();
+                    Stage Display = new Stage();
+                    BattleScene d = new BattleScene(p, zombie);
+                    d.start(Display);
                     //Stage worldStage = new Stage();
                     //stage.close();
                     //world.launch(worldStage)
 
                 }catch (FileNotFoundException e){
-                    fileNameBoxLabel.setText("\t     Entered file could not be found");
+                    nameBoxLabel.setText("\tSave file for this character does not exist");
                 }catch (Exception e){
-                    fileNameBoxLabel.setText("\t\t\tInvalid file format");
+                    nameBoxLabel.setText("\t\t   Invalid save file format");
                 }
             });
 
-        fileNameBoxLabel = new Label("   Please enter the name of your save file below\n\t\tto continue your adventure");
-        fileNameBox = new TextField();
-        fileNameBox.setPrefHeight(50);
-        fileNameBox.setPrefWidth(150);
-        fileNameBox.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
-        fileNameBox.setTranslateY(350);
-        fileNameBoxLabel.setPrefHeight(50);
-        fileNameBoxLabel.setPrefWidth(250);
-        fileNameBoxLabel.setTranslateX(275 - (start.getBoundsInLocal().getWidth() / 2));
-        fileNameBoxLabel.setTranslateY(300);
+        nameBoxLabel = new Label("\tPlease enter the name of your character");
+        nameBox = new TextField();
+        nameBox.setPrefHeight(50);
+        nameBox.setPrefWidth(150);
+        nameBox.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
+        nameBox.setTranslateY(250);
+        nameBoxLabel.setPrefHeight(50);
+        nameBoxLabel.setPrefWidth(250);
+        nameBoxLabel.setTranslateX(275 - (start.getBoundsInLocal().getWidth() / 2));
+        nameBoxLabel.setTranslateY(200);
 
-        Player player = new Player();
+
+        
         Enemy dragondeeznuts = new Dragon();
 
         //button does stuff
         start.setOnAction(event ->{
+            if(nameBox.getText().isBlank())
+            {
+                nameBoxLabel.setText("\t You must give your character a name");
+                return;
+            }
             try{
+                Player player = new Player(nameBox.getText());
+                Enemy zombie = new Zombie();
                 stage.close();
                 Stage Display = new Stage();
                 BattleScene d = new BattleScene(player, dragondeeznuts);
@@ -85,7 +103,7 @@ public class StartScreen extends Application {
         });
 
         // root and stuff
-        Pane root = new Pane(title, start, load,fileNameBox,fileNameBoxLabel);
+        Pane root = new Pane(title, start, load,nameBox,nameBoxLabel);
         stage.setTitle("Title Screen");
         stage.setScene(new Scene(root,800,600));
         stage.show();

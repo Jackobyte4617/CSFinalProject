@@ -20,7 +20,7 @@ public class StarterApp extends Application {
         Label titleLabel = new Label("FF1RipOff - Milestone 2: 1-on-1 Battle");
 
         // Create a player
-        Player p1 = new Player();
+        Player p1 = new Player("Adventurer");
 
         // Player and Game State Labels
         Label playerLabel = new Label("👤 Player | Health: " + p1.getHealth());
