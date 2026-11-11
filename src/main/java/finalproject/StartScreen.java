@@ -3,12 +3,9 @@ package finalproject;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class StartScreen extends Application {
@@ -29,13 +26,16 @@ public class StartScreen extends Application {
         start.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
         start.setTranslateY(400);
 
+        Player player = new Player();
+        Enemy zombie = new Zombie();
+
         //button does stuff
         start.setOnAction(event ->{
             try{
                 stage.close();
-                Stage battleStage = new Stage();
-                StarterApp mainGameApp = new StarterApp();
-                mainGameApp.start(battleStage);
+                Stage Display = new Stage();
+                BattleScene d = new BattleScene(player, zombie);
+                d.start(Display);
             } catch(Exception e){
                 e.printStackTrace();
             }
