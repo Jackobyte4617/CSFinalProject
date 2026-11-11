@@ -6,11 +6,12 @@ import javafx.scene.control.Label;
  * Base abstract class for all enemies, implementing the Combatant interface.
  */
 public abstract class Enemy implements Creature {
-    protected String name;
-    protected int health;
-    protected Label enemyLabel;
-    protected String icon;
-    protected int damage;
+    private String name;
+    private int health;
+    private Label enemyLabel;
+    private String icon;
+    private int damage;
+    private final int MAXHP;
 
     public Enemy(String name, int health, int damage, String icon) {
         this.name = name;
@@ -18,11 +19,12 @@ public abstract class Enemy implements Creature {
         this.icon = icon;
         this.enemyLabel = new Label(icon + " " + name + " | Health: " + health);
         this.damage = damage;
+        this.MAXHP = health;
     }
 
     @Override
-    public int attack(){
-        return damage;
+    public void attack(Creature c){
+        c.takeDamage(damage);
     }
 
     @Override
@@ -48,6 +50,12 @@ public abstract class Enemy implements Creature {
     public int getHealth() {
         return health;
     }
+
+    @Override
+    public int getDamage(){ return damage;}
+
+    @Override
+    public int getMAXHP() { return MAXHP;}
 
     public Label getEnemyLabel() {
         return enemyLabel;
