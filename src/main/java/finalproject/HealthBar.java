@@ -11,17 +11,16 @@ public class HealthBar {
     private Group bar;
     private Rectangle hP;
     private Text hPText;
-    //private Creature creature;
+    private Creature creature;
 
     //public HealthBar(int x, int y,Creature c)
-    public HealthBar(int x, int y)
+    public HealthBar(int x, int y, Creature c)
     {
         Rectangle box = new javafx.scene.shape.Rectangle(124, 24, new javafx.scene.paint.Color(.7, .7, .7, 1));
         hP = new javafx.scene.shape.Rectangle(2, 2, 120, 20);
         hP.setFill(new Color(1, 0, 0, 1));
-        hPText = new Text(5,17.5,"20/20");
-        //creature = c;
-        //hPText = new Text(5,17.5,"20/"+creature.getMaxHP);
+        this.creature = c;
+        hPText = new Text(5,17.5,creature.getMAXHP() + "/" + creature.getMAXHP());
         hPText.setFont(new Font(15));
         bar = new Group(box,hP,hPText);
         bar.setTranslateX(x);
@@ -37,7 +36,7 @@ public class HealthBar {
     public void updateHP(double hPPercent)
     {
         hP.setWidth(120*hPPercent);
-        hPText.setText((int)(20*hPPercent+0.01)+"/20");
+        hPText.setText((int)(creature.getMAXHP()*hPPercent+0.01)+ "/" + creature.getMAXHP());
     }
     public Group getDisplay()
     {

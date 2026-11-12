@@ -57,11 +57,18 @@ public class StartScreen extends Application {
 
         //button does stuff
         start.setOnAction(event ->{
+            if(nameBox.getText().isBlank())
+            {
+                nameBoxLabel.setText("\t You must give your character a name");
+                return;
+            }
             try{
+                Player player = new Player(nameBox.getText());
+                Enemy zombie = new Zombie();
                 stage.close();
-                Stage worldStage = new Stage();
-                WorldScreen worldScreen = new WorldScreen();
-                worldScreen.start(worldStage);
+                Stage Display = new Stage();
+                BattleScene d = new BattleScene(player, dragondeeznuts);
+                d.start(Display);
             } catch(Exception e){
                 e.printStackTrace();
             }

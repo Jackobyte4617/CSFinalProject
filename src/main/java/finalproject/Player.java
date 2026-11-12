@@ -7,28 +7,26 @@ public class Player implements Creature{
     private String name;
     private static int numberOfPlayers;
 
-    public Player(){
+    public Player(String name){
         this.hp = MAXHP;
         numberOfPlayers++;
-        this.name = "Adventurer " + numberOfPlayers;
+        this.name=name;
+        //this.name = "Adventurer " + numberOfPlayers;
     }
 
     @Override
-    public int attack(){
-        return DAMAGE;
+    public void attack(Creature c){
+        c.takeDamage(DAMAGE);
     }
-    public String getName(){
-
-
-        return name;
-    }
+    public String getName(){return name;}
 
     @Override
     public int getHealth(){
         return hp;
     }
 
-    public int getMaxHp() {
+    @Override
+    public int getMAXHP() {
         return MAXHP;
     }
 
@@ -42,8 +40,10 @@ public class Player implements Creature{
         hp -= damage;
     }
 
+    public int getDamage(){ return DAMAGE;}
+
     public boolean run(){
-        return (((MAXHP - hp) / MAXHP) <= Math.random());
+        return ((((double)MAXHP - hp) / MAXHP) >= Math.random());
 
     }
 
