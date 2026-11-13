@@ -6,6 +6,8 @@ public class Player implements Creature{
     private static final int DAMAGE = 150;
     private String name;
     private static int numberOfPlayers;
+    private int enemiesDefeated = 0;
+
 
     public Player(String name){
         this.hp = MAXHP;
@@ -49,5 +51,15 @@ public class Player implements Creature{
 
     public void getStatus(){
         System.out.println(hp + "   " + name);
+    }
+
+
+
+    public int getEnemiesDefeated() {
+        return enemiesDefeated;
+    }
+
+    public void incrementEnemiesDefeated() {
+        this.enemiesDefeated++;
     }
 }

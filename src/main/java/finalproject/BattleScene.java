@@ -28,6 +28,7 @@ public class BattleScene extends Application {
     boolean ranAway = false;
     boolean pAction = true;
     Enemy enemy;
+    private boolean scoreIncremented = false;
 
     private HealthBar hE1;
     private HealthBar hP1;
@@ -170,6 +171,10 @@ public class BattleScene extends Application {
             render.play();
         }
         if (!enemy.isAlive()) {
+            if (!scoreIncremented) {
+                p.incrementEnemiesDefeated();
+                scoreIncremented = true;
+            }
             render.setOnFinished(e -> {
                 console.setText("Victory!");
                 attack.setVisible(false);
