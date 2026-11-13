@@ -52,7 +52,7 @@ public class SaveFileHelper {
         File file = new File("src/main/java/SaveFiles/"+p.getName()+".txt");
         file.delete();
         FileWriter writer = new FileWriter("src/main/java/SaveFiles/"+p.getName()+".txt");
-        writer.write(p.getHealth()+"");
+        writer.write(p.getHealth()+""+p.getEnemiesDefeated());
         writer.close();
     }
 }
