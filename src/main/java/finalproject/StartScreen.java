@@ -77,11 +77,11 @@ public class StartScreen extends Application {
             }
             try{
                 Player player = new Player(nameBox.getText());
-                Enemy dragondeeznuts = new Dragon();
+                //Enemy dragondeeznuts = new Dragon();
                 stage.close();
-                Stage Display = new Stage();
-                BattleScene d = new BattleScene(player, dragondeeznuts);
-                d.start(Display);
+                Stage worldStage = new Stage();
+                WorldScreen worldScreen = new WorldScreen(player);
+                worldScreen.start(worldStage);
             } catch(Exception e){
                 e.printStackTrace();
             }
