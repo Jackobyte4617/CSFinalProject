@@ -24,6 +24,7 @@ public class SaveFileHelper {
         //int world = Integer.parseInt(reader.next());
         //int pos = Integer.parseInt(reader.next());
         int hP = Integer.parseInt(reader.next());
+        int enemiesKilled = Integer.parseInt(reader.next());
         //reader.nextLine();
         //May need to exist depending on map implementation
         /*int enemiesAliveBits = Integer.parseInt(reader.nextLine());
@@ -36,10 +37,11 @@ public class SaveFileHelper {
             }
          */
         reader.close();
-        if(hP<=0)throw new InvalidParameterException();
+        if(hP<=0||enemiesKilled<0)throw new InvalidParameterException();
         //temporary
         Player p = new Player(fileName);
         p.takeDamage(p.getHealth()-hP);
+        for(int i=0;i<enemiesKilled;i++)p.incrementEnemiesDefeated();
         return p;
         //WorldScreen worldScreen = new WorldScreen();
         //worldScreen.getPlayer().takeDamage(world.getPlayer().health-hp);
