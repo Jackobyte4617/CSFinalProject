@@ -29,7 +29,8 @@ public class WorldScreen extends Application {
         title.setFont(Font.font("TIMES NEW ROMAN", 40));
        // title.setY(120);
         //title.setX(400 - (title.getBoundsInLocal().getWidth() / 2));
-
+        Text scoreText = new Text("Enemies Defeated: " + player.getEnemiesDefeated());
+        scoreText.setFont(Font.font(18));
         // ADDED: Buttons to select different opponents
         Button zombieBtn = new Button("Fight Zombie");
         Button ogreBtn = new Button("Fight Ogre");
@@ -54,7 +55,7 @@ public class WorldScreen extends Application {
         deathBtn.setOnAction(event -> startBattle(stage, new Death()));
 
         // CHANGED: VBox layout to display title and enemy choice buttons
-        VBox root = new VBox(20, title, zombieBtn, ogreBtn, dragonBtn, werewolfBtn, pirateBtn, deathBtn);
+        VBox root = new VBox(20, title,scoreText, zombieBtn, ogreBtn, dragonBtn, werewolfBtn, pirateBtn, deathBtn);
         root.setAlignment(Pos.CENTER);
 
         stage.setTitle("World Screen");
