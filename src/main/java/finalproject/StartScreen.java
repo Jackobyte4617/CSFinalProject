@@ -14,6 +14,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 
@@ -26,7 +28,7 @@ public class StartScreen extends Application {
         StackPane root = new StackPane();
         URL imageUrl = getClass().getResource("/titlescreen1.png");
         if(imageUrl == null){
-            System.err.println("Error: uldnt find titlescreen in resources");
+            System.err.println("Error: couldnt find titlescreen in resources");
         } else{
             Image backgroundImage = new Image(imageUrl.toExternalForm());
             ImageView backgroundView = new ImageView(backgroundImage);
@@ -46,6 +48,17 @@ public class StartScreen extends Application {
         title.setFill(Color.WHITE);
         title.setStroke(Color.BLACK);
         title.setStrokeWidth(1.5);
+        title.setStrokeWidth(1.5);
+
+        //Fixing error from merge code, character name input field
+        TextField nameBox = new TextField();
+        nameBox.setPromptText("Enter your character name");
+        nameBox.setMaxWidth(250);
+        nameBox.setStyle("-fx-font-size: 14px;");
+
+        Label nameBoxLabel = new Label();
+        nameBoxLabel.setTextFill(Color.RED);
+        nameBoxLabel.setFont(Font.font("System", 14));
 
         // button to move on to start the game
         Button start = new Button("Start Adventure");
@@ -64,7 +77,7 @@ public class StartScreen extends Application {
             }
             try{
                 Player player = new Player(nameBox.getText());
-                Enemy zombie = new Zombie();
+                Enemy dragondeeznuts = new Dragon();
                 stage.close();
                 Stage Display = new Stage();
                 BattleScene d = new BattleScene(player, dragondeeznuts);
@@ -74,9 +87,9 @@ public class StartScreen extends Application {
             }
         });
 
-        VBox menuLayout = new VBox(40);
+        VBox menuLayout = new VBox(20);
         menuLayout.setAlignment(Pos.CENTER);
-        menuLayout.getChildren().addAll(title,start);
+        menuLayout.getChildren().addAll(title,nameBox, nameBoxLabel, start);
 
         // root and stuff
         root.getChildren().add(menuLayout);
