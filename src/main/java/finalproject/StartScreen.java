@@ -55,7 +55,7 @@ public class StartScreen extends Application {
 
         //Fixing error from merge code, character name input field
         nameBox = new TextField();
-        nameBox.setPromptText("Enter your character's name here");
+        nameBox.setPromptText("Enter your character's name");
         nameBox.setMaxWidth(250);
         nameBox.setStyle("-fx-font-size: 14px;");
 
