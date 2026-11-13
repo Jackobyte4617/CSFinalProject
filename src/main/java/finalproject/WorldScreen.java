@@ -34,18 +34,27 @@ public class WorldScreen extends Application {
         Button zombieBtn = new Button("Fight Zombie");
         Button ogreBtn = new Button("Fight Ogre");
         Button dragonBtn = new Button("Fight Dragon");
+        Button werewolfBtn = new Button("Fight Werewolf");
+        Button pirateBtn = new Button("Fight Pirate");
+        Button deathBtn = new Button("Fight Death");
 
         styleButton(zombieBtn);
         styleButton(ogreBtn);
         styleButton(dragonBtn);
+        styleButton(werewolfBtn);
+        styleButton(pirateBtn);
+        styleButton(deathBtn);
 
         // ADDED: Action handlers to launch BattleScene with the chosen enemy
         zombieBtn.setOnAction(event -> startBattle(stage, new Zombie()));
         ogreBtn.setOnAction(event -> startBattle(stage, new Ogre()));
         dragonBtn.setOnAction(event -> startBattle(stage, new Dragon()));
+        werewolfBtn.setOnAction(event -> startBattle(stage, new Werewolf()));
+        pirateBtn.setOnAction(event -> startBattle(stage, new Pirate()));
+        deathBtn.setOnAction(event -> startBattle(stage, new Death()));
 
         // CHANGED: VBox layout to display title and enemy choice buttons
-        VBox root = new VBox(20, title, zombieBtn, ogreBtn, dragonBtn);
+        VBox root = new VBox(20, title, zombieBtn, ogreBtn, dragonBtn, werewolfBtn, pirateBtn, deathBtn);
         root.setAlignment(Pos.CENTER);
 
         stage.setTitle("World Screen");
