@@ -10,7 +10,8 @@ import java.util.Scanner;
 public class SaveFileHelper {
     /*
     Save file format
-    world position hp
+    hp
+    //world position hp
     //May need to exist depending on map implementation
     //Enemies dead bit sequence in reverse order
     //110110
@@ -20,8 +21,8 @@ public class SaveFileHelper {
     public static Player loadFile(String fileName) throws FileNotFoundException {
         File file = new File("src/main/java/SaveFiles/"+fileName+".txt");
         Scanner reader = new Scanner(file);
-        int world = Integer.parseInt(reader.next());
-        int pos = Integer.parseInt(reader.next());
+        //int world = Integer.parseInt(reader.next());
+        //int pos = Integer.parseInt(reader.next());
         int hP = Integer.parseInt(reader.next());
         //reader.nextLine();
         //May need to exist depending on map implementation
@@ -35,7 +36,7 @@ public class SaveFileHelper {
             }
          */
         reader.close();
-        if(world<=0||pos<0||hP<=0)throw new InvalidParameterException();
+        if(hP<=0)throw new InvalidParameterException();
         //temporary
         Player p = new Player(fileName);
         p.takeDamage(p.getHealth()-hP);
@@ -45,11 +46,11 @@ public class SaveFileHelper {
         //updating position and world to saved values, code depends on implementation
         //return worldScreen
     }
-    public static void save(Player p,int world,int pos) throws IOException {
+    public static void save(Player p) throws IOException {
         File file = new File("src/main/java/SaveFiles/"+p.getName()+".txt");
         file.delete();
         FileWriter writer = new FileWriter("src/main/java/SaveFiles/"+p.getName()+".txt");
-        writer.write(world+" "+pos+" "+p.getHealth());
+        writer.write(p.getHealth()+"");
         writer.close();
     }
 }

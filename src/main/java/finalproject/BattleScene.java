@@ -173,6 +173,7 @@ public class BattleScene extends Application {
                 run.setOnAction(evt -> {
                     stage.close();
                     try {
+                        SaveFileHelper.save(p);
                         Stage worldStage = new Stage();
                         WorldScreen worldScreen = new WorldScreen(p);
                         worldScreen.start(worldStage);

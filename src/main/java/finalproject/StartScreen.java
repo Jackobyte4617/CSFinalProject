@@ -17,9 +17,12 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 
 public class StartScreen extends Application {
+    private TextField nameBox;
+    private Label nameBoxLabel;
     //Window Size
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -51,12 +54,12 @@ public class StartScreen extends Application {
         title.setStrokeWidth(1.5);
 
         //Fixing error from merge code, character name input field
-        TextField nameBox = new TextField();
-        nameBox.setPromptText("Enter your character name");
+        nameBox = new TextField();
+        nameBox.setPromptText("Enter your character's name");
         nameBox.setMaxWidth(250);
         nameBox.setStyle("-fx-font-size: 14px;");
 
-        Label nameBoxLabel = new Label();
+        nameBoxLabel = new Label();
         nameBoxLabel.setTextFill(Color.RED);
         nameBoxLabel.setFont(Font.font("System", 14));
 
@@ -68,15 +71,48 @@ public class StartScreen extends Application {
      //   start.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
         // start.setTranslateY(400);
 
-        //button does stuff
-        start.setOnAction(event ->{
+        Button load = new Button("Continue Adventure");
+        load.setFont(Font.font(15));
+        load.setPrefHeight(50);
+        load.setPrefWidth(200);
+        //load.setTranslateX(300 - (load.getBoundsInLocal().getWidth() / 2));
+        //load.setTranslateY(425);
+        load.setOnAction(event ->
+        {
             if(nameBox.getText().isBlank())
             {
                 nameBoxLabel.setText("\t You must give your character a name");
                 return;
             }
             try{
+                //WorldScreen world =
+                Player p = SaveFileHelper.loadFile(nameBox.getText());
+
+                //Stage worldStage = new Stage();
+                //stage.close();
+                //world.launch(worldStage)
+                stage.close();
+                Stage worldStage = new Stage();
+                WorldScreen worldScreen = new WorldScreen(p);
+                worldScreen.start(worldStage);
+
+            }catch (FileNotFoundException e){
+                nameBoxLabel.setText("Save file for this character does not exist");
+            }catch (Exception e){
+                nameBoxLabel.setText("Invalid save file format");
+            }
+        });
+
+        //button does stuff
+        start.setOnAction(event ->{
+            if(nameBox.getText().isBlank())
+            {
+                nameBoxLabel.setText("You must give your character a name");
+                return;
+            }
+            try{
                 Player player = new Player(nameBox.getText());
+                SaveFileHelper.save(player);
                 //Enemy dragondeeznuts = new Dragon();
                 stage.close();
                 Stage worldStage = new Stage();
@@ -89,7 +125,7 @@ public class StartScreen extends Application {
 
         VBox menuLayout = new VBox(20);
         menuLayout.setAlignment(Pos.CENTER);
-        menuLayout.getChildren().addAll(title,nameBox, nameBoxLabel, start);
+        menuLayout.getChildren().addAll(title,nameBox, nameBoxLabel, start,load);
 
         // root and stuff
         root.getChildren().add(menuLayout);
