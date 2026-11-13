@@ -112,6 +112,7 @@ public class BattleScene extends Application {
                     pause.setOnFinished(efe -> {
                         stage.close();
                         try {
+                            SaveFileHelper.save(p);
                             Stage worldStage = new Stage();
                             WorldScreen worldScreen = new WorldScreen(p);
                             worldScreen.start(worldStage);
