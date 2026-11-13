@@ -10,42 +10,66 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
 
 public class WorldScreen extends Application {
+    private Player player;
+    public WorldScreen(Player player){
+        this.player = player;
+    }
+    public WorldScreen(){
+        this.player = new Player("Adventure");
+    }
     @Override
     public void start(Stage stage) throws Exception {
 
         // title
-        Text title = new Text("World button 1");
-        title.setFont(Font.font("TIMES NEW ROMAN", 80));
-        title.setY(120);
-        title.setX(400 - (title.getBoundsInLocal().getWidth() / 2));
+        Text title = new Text("World map- choose enemy");
+        title.setFont(Font.font("TIMES NEW ROMAN", 40));
+       // title.setY(120);
+        //title.setX(400 - (title.getBoundsInLocal().getWidth() / 2));
 
-        // button to move on to start the game
-        Button start = new Button("Fight?");
-        start.setFont(Font.font(15));
-        start.setPrefHeight(50);
-        start.setPrefWidth(150);
-        start.setTranslateX(325 - (start.getBoundsInLocal().getWidth() / 2));
-        start.setTranslateY(400);
+        // ADDED: Buttons to select different opponents
+        Button zombieBtn = new Button("Fight Zombie");
+        Button ogreBtn = new Button("Fight Ogre");
+        Button dragonBtn = new Button("Fight Dragon");
 
-        //button does stuff
-        start.setOnAction(event ->{
-            try{
-                stage.close();
-                Stage battleStage = new Stage();
-                StarterApp mainGameApp = new StarterApp();
-                mainGameApp.start(battleStage);
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-        });
+        styleButton(zombieBtn);
+        styleButton(ogreBtn);
+        styleButton(dragonBtn);
 
-        // root and stuff
-        Pane root = new Pane(title, start);
+        // ADDED: Action handlers to launch BattleScene with the chosen enemy
+        zombieBtn.setOnAction(event -> startBattle(stage, new Zombie()));
+        ogreBtn.setOnAction(event -> startBattle(stage, new Ogre()));
+        dragonBtn.setOnAction(event -> startBattle(stage, new Dragon()));
+
+        // CHANGED: VBox layout to display title and enemy choice buttons
+        VBox root = new VBox(20, title, zombieBtn, ogreBtn, dragonBtn);
+        root.setAlignment(Pos.CENTER);
+
         stage.setTitle("World Screen");
-        stage.setScene(new Scene(root,800,600));
+        stage.setScene(new Scene(root, 800, 600));
         stage.show();
+    }
+
+    // ADDED: Helper method to launch BattleScene passing player and enemy
+    private void startBattle(Stage stage, Enemy enemy) {
+        try {
+            stage.close();
+            Stage battleStage = new Stage();
+            BattleScene battleScene = new BattleScene(player, enemy);
+            battleScene.start(battleStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ADDED: Helper method for button styling
+    private void styleButton(Button btn) {
+        btn.setFont(Font.font(15));
+        btn.setPrefHeight(40);
+        btn.setPrefWidth(200);
     }
     public static void main(String[] args){
         launch(args);

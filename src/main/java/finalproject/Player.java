@@ -3,7 +3,7 @@ package finalproject;
 public class Player implements Creature{
     private int hp;
     private static final int MAXHP = 100;
-    private static final int DAMAGE = 6;
+    private static final int DAMAGE = 150;
     private String name;
     private static int numberOfPlayers;
 

@@ -27,6 +27,8 @@ public class BattleScene extends Application {
     private Text console;
     private PauseTransition pause;
     private PauseTransition render;
+    private Button attack;
+    private Button run;
 
     public BattleScene(Player p, Enemy e){
         this.p = p;
@@ -73,7 +75,7 @@ public class BattleScene extends Application {
         console.setFont(new Font(20));
         console.setFill(new Color(0.8, 0.8, 0.8, 1));
 
-        Button attack = new Button("Attack");
+        attack = new Button("Attack");
         attack.setTranslateX(600);
         attack.setTranslateY(100);
         attack.setFont(new Font(20));
@@ -92,7 +94,7 @@ public class BattleScene extends Application {
             }
         });
 
-        Button run = new Button("RUN!");
+        run = new Button("RUN!");
         run.setTranslateX(600);
         run.setTranslateY(300);
         run.setFont(new Font(20));
@@ -104,6 +106,14 @@ public class BattleScene extends Application {
                     console.setText("You successfully ran away");
                     pause.setOnFinished(efe -> {
                         stage.close();
+                        try{
+                            //returns to worldscreen if successfull
+                            Stage worldStage = new Stage();
+                            WorldScreen worldScreen = new WorldScreen(p);
+                            worldScreen.start(worldStage);
+                        }catch(Exception ex){
+                            ex.printStackTrace();
+                        }
                     });
                     pause.play();
                 } else {
@@ -136,20 +146,42 @@ public class BattleScene extends Application {
         hP1.updateHP((double) p.getHealth() / p.getMAXHP());
         hE1.updateHP((double) enemy.getHealth() / enemy.getMAXHP());
         if(!p.isAlive()) {
-            render.setOnFinished(e -> console.setText("Defeat..."));
-            pause.setOnFinished(e -> {
-                stage.close();
+            render.setOnFinished(e -> {
+                console.setText("Defeat...");
+                attack.setVisible(false);
+                run.setText("Main Menu");
+                run.setDisable(false);
+                run.setOnAction(evt -> {
+                    stage.close();
+                    try {
+                        Stage startStage = new Stage();
+                        StartScreen startScreen = new StartScreen();
+                        startScreen.start(startStage);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
             });
             render.play();
-            pause.play();
         }
         if(!enemy.isAlive()){
-            render.setOnFinished(e -> console.setText("Victory!"));
-            pause.setOnFinished(e -> {
-                stage.close();
+            render.setOnFinished(e -> {
+                console.setText("Victory!");
+                attack.setVisible(false);
+                run.setText("Return to World");
+                run.setDisable(false);
+                run.setOnAction(evt -> {
+                    stage.close();
+                    try {
+                        Stage worldStage = new Stage();
+                        WorldScreen worldScreen = new WorldScreen(p);
+                        worldScreen.start(worldStage);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
             });
             render.play();
-            pause.play();
         }
     }
 
